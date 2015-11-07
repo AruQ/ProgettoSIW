@@ -1,0 +1,170 @@
+@font-face {
+	font-family: OSWALD-BOLD;
+	src: url(../fonts/OSWALD-BOLD.TTF);
+}
+
+@font-face {
+	font-family: OSWALD-regular;
+	src: url(../fonts/OSWALD-REGULAR.TTF);
+}
+
+@font-face {
+	font-family: Economica-Regular;
+	src: url(../fonts/Economica-Regular.ttf);
+}
+
+@font-face {
+	font-family: Economica-Bold;
+	src: url(../fonts/Economica-Bold.ttf);
+}
+
+.row {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+	
+}
+
+
+#navbarul>li>a {
+	color: black;
+	font-family: Arial;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#navbarul>li>a:hover {
+	background: #ffffff;
+	border-radius: 5px;
+	color: black;
+	transition: all 0.5s;
+	animation: rubberBand 0.9s;
+	-webkit-animation: rubberBand 0.9s;
+}
+
+#navbarul>.open>a, #navbarul>.open>a:focus, #navbarul>.open>a:hover {
+	background-color: #ffffff;
+	border-radius: 5px;
+}
+#navbarul>li {
+ 	margin-top: 30px; 
+}
+
+#navbarul li>.dropdown-menu {
+	width:300px;
+	
+}
+
+
+body {
+	font-family: hansen;
+	background-image: url("../images/pattern2.jpg");
+	background-repeat: repeat;
+	width: 100%;
+}
+
+.clearfix {
+	clear: both;
+}
+
+#sliderWrapper {
+	background-image: url("../images/BG.jpg");
+	position: relative;
+	width: 100%;
+	height: 700px;
+	margin-top:-20px;
+
+}
+
+
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+       margin: auto; 
+       margin-top: 50px;
+     
+  }
+
+
+#bestDishesWrapper {
+	background-image: url("../images/black_denim.jpg");
+	width: 100%;
+	border: 0px;
+	padding: 3% 0;
+}
+
+#mapWrapper {
+	background-image: url("../images/BG.jpg");
+	width: 100%;
+	border: 0px;
+	padding: 3% 0;
+}
+
+#map {
+	position: relative;
+	height: 800px;
+	max-width: 100%;;
+	min-width: 200px;
+}
+
+/*BEST DISHES*/
+#bestDishesWrapper h2, #mapWrapper h2 {
+	text-align: center;
+	color: red;
+	font-size: 35px;
+	letter-spacing: 3px;
+	font-family: Economica-bold;
+	padding-bottom: 5%;
+}
+
+#bestDishesWrapper h2::before, #mapWrapper h2::before {
+	content: url(../images/rectangle.png);
+	position: relative;
+	margin-right: 15px;
+	top: -10px;
+}
+
+#bestDishesWrapper h2::after, #mapWrapper h2::after {
+	content: url(../images/rectangle.png);
+	position: relative;
+	margin-left: 15px;
+	top: -10px;
+}
+
+#bestDishesWrapper img {
+	border: 5px solid white;
+	height: 250px;
+	width: 250px;
+	display: block;
+	margin: 0 auto;
+}
+
+#bestDishesWrapper h3 {
+	font-family: Economica-Regular;
+	color: white;
+	font-size: 30px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-align: center;
+	padding: 5% 0;
+}
+
+
+.page-header {
+	text-align: center;
+}
+#userDetail {
+
+    border-radius: 10px 70px;
+   background-color: rgba(50, 50, 50, 0.8);
+   color: white;
+   margin: 10px 0;
+
+    
+  
+}
+
+
+#controlPanelButton{
+	background-color: #C15042;
+	border-color: #BB3D2E;
+}

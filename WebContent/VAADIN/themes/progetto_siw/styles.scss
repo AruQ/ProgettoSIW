@@ -1,0 +1,9 @@
+@import "addons.scss";
+@import "progetto_siw.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in progetto_siw.scss */
+.progetto_siw {
+  @include addons;
+  @include progetto_siw;
+}

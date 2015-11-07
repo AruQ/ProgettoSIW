@@ -1,0 +1,111 @@
+/* @font-face {
+	src: url(http://lab.web-gate.fr/fonts/proxima-nova/ProximaNova-Light.ttf);
+	font-family: proximaNova;
+} */
+
+#signup {
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	font-family: "proximaNova", helvetica Neue;
+	font-weight: 600;
+	-webkit-appearance: none;
+	border-radius: 0;
+}
+
+#card {
+	width: 90%;
+	margin: 0 auto;
+	padding: 5% auto;
+}
+
+#card input {
+	padding: 2%;
+}
+
+.decoratedNormalForm {
+	border: 2px solid #f2e95e;
+}
+
+.decoratedErrorForm {
+	border: 2px solid #ce383a;
+}
+
+.decoratedCheckedForm {
+	border: 2px solid #39af04;
+}
+
+h10 {
+	text-shadow: 0 1px 0 #ae3927;
+	font-size: 1.62em;
+	color: #cc2e43;
+	display: block;
+	width: 80%;
+	padding-bottom: .4em;
+	margin-bottom: .6em;
+	border-bottom: 2px solid #cc2e31;
+	/*box-shadow*/
+	-webkit-box-shadow: 0 1px 0 #ae2728;
+	-moz-box-shadow: 0 1px 0 #ae2731;
+	box-shadow: 0 1px 0 #ae2730;
+}
+
+#card h10 {
+	width: 100%;
+}
+
+#card a {
+	color: #ae2728
+}
+
+#card label {
+	font-size: 10px;
+	display: block;
+	clear: left;
+	line-height: 2.4;
+	margin: -30px 0 0;
+	padding: 0;
+	width: 190px;
+	height: 20px;
+}
+
+#signup input[type="text"], #signup input[type="submit"],#signup input[type="password"] {
+	clear: both;
+	display: block;
+	/*    border: 1px solid #ccc; */
+	background: #ebebeb;
+	margin: 6px 0;
+	padding: 4px 10px;
+	width: 100%;
+	outline: 0;
+	color: #34495e;
+	font-size: 14px;
+}
+
+#signup input[type=submit] {
+	background: #ae2b27;
+	color: #ecf0f1;
+	border: 0;
+	border-bottom: 2px solid #cc2e3e;
+	margin: 10px 0 0;
+}
+
+#signup input[type=text]:not ([value*=" "] ):active, #signup input[type=text]:not ([value*=" "] ):focusinput[type=password]:not
+	([value*=" "] ):active,#signup input[type=password]:not ([value*=" "] ):focus {
+	/*box-shadow*/
+	-webkit-box-shadow: inset 8px 0px 0 #cc322e;
+	-moz-box-shadow: inset 8px 0px 0 #cc2e30;
+	box-shadow: inset 8px 0px 0 #cc2e2e;
+	padding-left: :;
+	:
+	x;
+}
+
+#signup input[type=submit]:active, #signup input[type=submit]:focus {
+	background: #cc2e31;
+	color: #ecf0f1;
+	border: 0;
+	position: relative;
+	top: 1px;
+	border-bottom: 1px solid;
+}
+

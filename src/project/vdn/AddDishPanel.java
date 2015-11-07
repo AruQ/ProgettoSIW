@@ -1,10 +1,14 @@
 package project.vdn;
 
+import project.beans.Dish;
 import project.beans.DishCategory;
+import project.database.BeanDBManager;
 
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
@@ -14,8 +18,12 @@ import com.vaadin.ui.VerticalLayout;
 public class AddDishPanel extends VerticalLayout
 {
 
-	public AddDishPanel()
+	private static final long serialVersionUID = -8447527159907383839L;
+	private MyMediator mediator;
+
+	public AddDishPanel(MyMediator mediator)
 	{
+		this.mediator = mediator;
 		init();
 	}
 
@@ -50,6 +58,20 @@ public class AddDishPanel extends VerticalLayout
 		this.addComponent(combobox);
 
 		Button submit = new Button("Submit");
+		submit.addClickListener(new ClickListener()
+		{
+
+			@Override
+			public void buttonClick(ClickEvent event)
+			{
+				Dish dish = new Dish(name.getValue(), image_url.getValue(), description.getValue(), DishCategory
+						.getDishCategory((String) combobox.getValue()));
+				BeanDBManager.getInstance().addDish(dish);
+				mediator.resetSecondContentTab();
+
+
+			}
+		});
 
 		this.addComponent(submit);
 		((AbstractOrderedLayout) this).setComponentAlignment(submit, Alignment.BOTTOM_RIGHT);

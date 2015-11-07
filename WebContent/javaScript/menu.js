@@ -30,27 +30,27 @@ $(document).ready(function() {
 				avaibleDays = responseJson;
 
 			}
-			$(function() {
-				$("#datepicker").datepicker({
-					maxDate : 0,
-					firstDay : 1,
-					onSelect : function(date) {
-						$("#mainIndex").load("menu.jsp?date=" + date + "&dateFormat=" + "MM/dd/yyyy");
-					},
-					beforeShowDay : function(fullDate) {
-
-						if (checkData(fullDate)) {
-
-							return [ 1 ];
-						} else {
-
-							return [ 0 ];
-						}
-
-					}
-				});
-			});
 		}
 	});
 
+});
+$(function() {
+	$("#datepicker").datepicker({
+
+		firstDay : 1,
+		onSelect : function(date) {
+			$("#mainIndex").load("menu.jsp?date=" + date + "&dateFormat=" + "MM/dd/yyyy");
+		},
+		beforeShowDay : function(fullDate) {
+
+			if (checkData(fullDate)) {
+
+				return [ 1 ];
+			} else {
+
+				return [ 0 ];
+			}
+
+		}
+	});
 });

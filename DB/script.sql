@@ -145,7 +145,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE updateDish (IN name VARCHAR (100), IN description VARCHAR(500), IN image_url VARCHAR(100), IN category VARCHAR (100)) 
+CREATE PROCEDURE addDish (IN name VARCHAR (100), IN description VARCHAR(500), IN image_url VARCHAR(100), IN category VARCHAR (100)) 
 BEGIN  
 INSERT INTO DISH (NAME, DESCRIPTION, IMAGE_URL, CATEGORY)
 VALUES (name, description, image_url, category);
@@ -153,7 +153,7 @@ END; $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE addDish (IN id INT, IN name VARCHAR (100), IN description VARCHAR(500), IN image_url VARCHAR(100), IN category VARCHAR (100)) 
+CREATE PROCEDURE updateDish (IN id INT, IN name VARCHAR (100), IN description VARCHAR(500), IN image_url VARCHAR(100), IN category VARCHAR (100)) 
 BEGIN  
 UPDATE DISH
 SET DISH.NAME= name, DISH.DESCRIPTION = description, DISH.IMAGE_URL =image_url, DISH.CATEGORY = category

@@ -1,5 +1,6 @@
 package project.vdn;
 
+import java.io.Serializable;
 import java.util.List;
 
 import project.beans.User;
@@ -15,8 +16,10 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 
-public class TableUsers
+public class TableUsers implements Serializable
 {
+
+	private static final long serialVersionUID = 9116050839565125417L;
 	Table table = null;
 	private List<User> allUser = null;
 
@@ -61,6 +64,8 @@ public class TableUsers
 				Button submit = new Button("Submit");
 				submit.addClickListener(new ClickListener()
 				{
+
+					private static final long serialVersionUID = 3543285666483221749L;
 
 					@Override
 					public void buttonClick(ClickEvent event)

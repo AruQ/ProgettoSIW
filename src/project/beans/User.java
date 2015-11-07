@@ -1,10 +1,13 @@
 package project.beans;
 
+import java.io.Serializable;
+
 import project.util.JsonConverter;
 
-public class User
+public class User implements Serializable
 {
 
+	private static final long serialVersionUID = -555896765267604018L;
 	protected String username;
 	protected String password;
 	protected String email;

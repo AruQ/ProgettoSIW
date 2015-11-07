@@ -2,10 +2,13 @@ package project.database;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import project.beans.User;
 public class BeanDBManager extends AbstractDBManager
 {
     private static BeanDBManager instance;
+	private final SimpleDateFormat dateSDF = new SimpleDateFormat("dd-MM-yyyy");
 
     public static BeanDBManager getInstance()
     {
@@ -427,6 +431,88 @@ public class BeanDBManager extends AbstractDBManager
 		return false;
 	}
 
+	public boolean updateDish(final Dish dish)
+	{
+		String procedure = "{call updateDish(?,?,?,?,?)}";
+		CallableStatement callableStatement = null;
+		final Connection connection = createConnection();
+		try
+		{
+			callableStatement = connection.prepareCall(procedure);
+			callableStatement.setInt(1, dish.getId());
+			callableStatement.setString(2, dish.getName());
+			callableStatement.setString(3, dish.getDescription());
+			callableStatement.setString(4, dish.getImageUrl());
+			callableStatement.setInt(5, dish.getCategory().getId());
+			callableStatement.execute();
+			return true;
+		} catch (final SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeStatement(callableStatement);
+			closeConnection(connection);
+		}
+		return false;
+	}
+
+	public boolean addDish(final Dish dish)
+	{
+		String procedure = "{call addDish(?,?,?,?)}";
+		CallableStatement callableStatement = null;
+		final Connection connection = createConnection();
+		try
+		{
+			callableStatement = connection.prepareCall(procedure);
+			callableStatement.setString(1, dish.getName());
+			callableStatement.setString(2, dish.getDescription());
+			callableStatement.setString(3, dish.getImageUrl());
+			callableStatement.setInt(4, dish.getCategory().getId());
+			callableStatement.execute();
+			return true;
+		} catch (final SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeStatement(callableStatement);
+			closeConnection(connection);
+		}
+		return false;
+	}
+
+	public boolean deleteDish(Dish dish)
+	{
+		final String query = "DELETE FROM DISH WHERE ID=?";
+		final Connection conn = createConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try
+		{
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, dish.getId());
+
+			ps.executeQuery();
+			return true;
+
+		} catch (final SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeResultSet(rs);
+			closeStatement(ps);
+			closeConnection(conn);
+		}
+		return false;
+
+	}
+
 	public Cafeteria getCafeteria(final String name)
 	{
 		Cafeteria cafeteria = null;
@@ -570,6 +656,107 @@ public class BeanDBManager extends AbstractDBManager
 		return user;
 	}
 
+	public List<Dish> getDishesByDay(String data)
+	{
+		final List<Dish> toReturn = new ArrayList<>();
+		final String query = "SELECT * FROM DAILYMENU, DISH WHERE DISH.ID=DAILYMENU.DISH AND DAILYMENU.MENUDATE=?";
 
+		final Connection conn = createConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try
+		{
+
+			java.sql.Date dataDB = new Date(dateSDF.parse(data).getTime());
+			ps = conn.prepareStatement(query);
+			ps.setDate(1, dataDB);
+
+			rs = ps.executeQuery();
+
+			while (rs.next())
+			{
+				final Dish dish = new Dish();
+				dish.setID(rs.getInt("ID"));
+				dish.setName(rs.getString("NAME"));
+				dish.setDescription(rs.getString("DESCRiPTION"));
+				dish.setAvgRating(rs.getFloat("AVG_RATING"));
+				dish.setImageUrl(rs.getString("IMAGE_URL"));
+				dish.setCategory(DishCategory.getDishCategoryByID(rs.getString("CATEGORY")));
+				toReturn.add(dish);
+			}
+		} catch (final SQLException | ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeResultSet(rs);
+			closeStatement(ps);
+			closeConnection(conn);
+		}
+		return toReturn;
+	}
+
+	public void addDishToMenu(String date, int dishID)
+	{
+		final String query = "INSERT IGNORE INTO DAILYMENU (MENUDATE, DISH) VALUE (?,?)";
+
+		final Connection conn = createConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try
+		{
+
+			java.sql.Date dataDB = new Date(dateSDF.parse(date).getTime());
+			ps = conn.prepareStatement(query);
+			ps.setDate(1, dataDB);
+			ps.setInt(2, dishID);
+
+			ps.executeQuery();
+
+
+		} catch (final SQLException | ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeResultSet(rs);
+			closeStatement(ps);
+			closeConnection(conn);
+		}
+	}
+
+	public void deleteDishToMenu(String date, int dishID)
+	{
+		final String query = "DELETE FROM DAILYMENU WHERE MENUDATE=? AND DISH =?";
+
+		final Connection conn = createConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try
+		{
+
+			java.sql.Date dataDB = new Date(dateSDF.parse(date).getTime());
+			ps = conn.prepareStatement(query);
+			ps.setDate(1, dataDB);
+			ps.setInt(2, dishID);
+
+			ps.executeQuery();
+
+		} catch (final SQLException | ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeResultSet(rs);
+			closeStatement(ps);
+			closeConnection(conn);
+		}
+	}
 
 }

@@ -1,5 +1,6 @@
 package project.vdn;
 
+import java.io.Serializable;
 import java.util.List;
 
 import project.beans.Dish;
@@ -14,8 +15,10 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 
-public class TableDishes
+public class TableDishes implements Serializable
 {
+
+	private static final long serialVersionUID = -498926289006391144L;
 	Table table;
 	private List<Dish> allDishes = null;
 	private MyMediator mediator;
@@ -72,10 +75,12 @@ public class TableDishes
 				modify.addClickListener(new ClickListener()
 				{
 
+					private static final long serialVersionUID = 1221912975966146657L;
+
 					@Override
 					public void buttonClick(ClickEvent event)
 					{
-						ModifyDishPanel modifyDishPanel = new ModifyDishPanel(dish);
+						ModifyDishPanel modifyDishPanel = new ModifyDishPanel(dish, mediator);
 						mediator.setSecondContentTab(modifyDishPanel);
 
 					}
@@ -85,10 +90,13 @@ public class TableDishes
 				delete.addClickListener(new ClickListener()
 				{
 
+					private static final long serialVersionUID = -6714555180836512953L;
+
 					@Override
 					public void buttonClick(ClickEvent event)
 					{
-						System.out.println("submit");
+						BeanDBManager.getInstance().deleteDish(dish);
+						mediator.resetSecondContentTab();
 
 					}
 				});

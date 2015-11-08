@@ -11,6 +11,7 @@ import java.util.Set;
 import project.beans.Dish;
 import project.database.BeanDBManager;
 
+import com.vaadin.server.Page;
 import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -66,7 +67,9 @@ public class MenuPanel extends VerticalLayout
 					date.setValue(new Date());
 
 					changeSelectedDishes(date.getValue());
-					Notification.show("Non puoi selezionare una data precedente a oggi", Type.WARNING_MESSAGE);
+					Notification notification = new Notification("Non puoi selezionare una data precedente a oggi", Type.WARNING_MESSAGE);
+					notification.setStyleName("mystyle");
+					notification.show(Page.getCurrent());
 				} else
 				{
 					changeSelectedDishes(date.getValue());
@@ -108,13 +111,15 @@ public class MenuPanel extends VerticalLayout
 					}
 
 				}
-				Notification.show("Menu del " + currentDate + " aggiornato", Type.TRAY_NOTIFICATION);
+				Notification notification = new Notification("Menu del " + currentDate + " aggiornato", Type.TRAY_NOTIFICATION);
+				notification.setStyleName("mystyle");
+				notification.show(Page.getCurrent());
 
 			}
 		});
 		this.addComponent(save);
 		((AbstractOrderedLayout) this).setComponentAlignment(save, Alignment.BOTTOM_RIGHT);
-		this.setWidth("90%");
+		this.setWidth("70%");
 	}
 
 	public void initTable(Date date)

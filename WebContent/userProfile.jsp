@@ -13,6 +13,24 @@
 	{
 %>
 
+<script>function goToControlPanel(username) {
+
+		$.ajax({
+			type : "POST",
+			url : contextPath + '/admin',
+			data : {
+				'username': username
+			},
+			success : function(data) {
+
+				location.href=contextPath+"/admin";
+			}
+
+		});
+
+	}
+</script>
+
 
 <div id="userDetail" class="container">
 
@@ -92,7 +110,8 @@
 										if (user.getAdmin())
 											{
 									%>
-									<a href='<%=request.getContextPath()%>/admin'><img src="http://www.berk-tel.com/images/button_admin.gif" alt="admin" /></a>
+									<div class="divider"></div>
+									<a id="controlPanelButton" class="btn btn-success btn-sm btn-block" onclick="goToControlPanel(<%=user.getUsername()%>)"><i class="fa fa-user"></i>&nbsp;Administration</a>
 									<%
 										}
 									%>

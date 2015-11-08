@@ -33,4 +33,24 @@
   @include valo;
 
   // Insert your own theme rules here
+  
+  h3 {
+    margin:10px 0;
+  }
+  
+  .v-Notification.mystyle {
+     border-radius: 10px 10px;
+     background-color: rgba(50, 50, 50, 0.5);
+     color: white;
+     margin: 10px 0;
+   
+  }
+  
+  .v-Notification.mystyle h1{
+    font-size:30px;
+    margin:0;
+    padding: 10px 10px;
+    color:white;
+  }
+  
 }

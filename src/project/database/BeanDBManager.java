@@ -656,6 +656,7 @@ public class BeanDBManager extends AbstractDBManager
 		return user;
 	}
 
+
 	public List<Dish> getDishesByDay(String data)
 	{
 		final List<Dish> toReturn = new ArrayList<>();
@@ -727,6 +728,36 @@ public class BeanDBManager extends AbstractDBManager
 			closeStatement(ps);
 			closeConnection(conn);
 		}
+	}
+
+	public boolean setAdmin(String username, boolean admin)
+	{
+		final String query = "UPDATE USER SET ADMIN=? WHERE USERNAME=?";
+		final Connection conn = createConnection();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try
+		{
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, admin);
+			ps.setString(2, username);
+
+			ps.executeQuery();
+			return true;
+
+		} catch (final SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			closeResultSet(rs);
+			closeStatement(ps);
+			closeConnection(conn);
+		}
+		return false;
+
 	}
 
 	public void deleteDishToMenu(String date, int dishID)

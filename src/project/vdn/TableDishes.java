@@ -81,7 +81,7 @@ public class TableDishes implements Serializable
 					public void buttonClick(ClickEvent event)
 					{
 						ModifyDishPanel modifyDishPanel = new ModifyDishPanel(dish, mediator);
-						mediator.setSecondContentTab(modifyDishPanel);
+						mediator.setFirstContentTab(modifyDishPanel);
 
 					}
 				});
@@ -96,7 +96,7 @@ public class TableDishes implements Serializable
 					public void buttonClick(ClickEvent event)
 					{
 						BeanDBManager.getInstance().deleteDish(dish);
-						mediator.resetSecondContentTab();
+						mediator.resetFirstContentTab();
 
 					}
 				});
@@ -106,7 +106,7 @@ public class TableDishes implements Serializable
 		}
 
 		table.setPageLength(table.size());
-		table.setWidth("100%");
+		table.setWidth("90%");
 	}
 
 	public Table getTable()

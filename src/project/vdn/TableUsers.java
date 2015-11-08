@@ -7,12 +7,15 @@ import project.beans.User;
 import project.database.BeanDBManager;
 
 import com.vaadin.server.ExternalResource;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 
@@ -22,8 +25,14 @@ public class TableUsers implements Serializable
 	private static final long serialVersionUID = 9116050839565125417L;
 	Table table = null;
 	private List<User> allUser = null;
+	private User user;
 
 
+	public TableUsers(User user)
+	{
+		this.user = user;
+		// TODO Auto-generated constructor stub
+	}
 
 	public void initTable()
 	{
@@ -61,8 +70,8 @@ public class TableUsers implements Serializable
 				if (user.getAdmin())
 					admin.setValue(true);
 
-				Button submit = new Button("Submit");
-				submit.addClickListener(new ClickListener()
+				Button save = new Button("Save");
+				save.addClickListener(new ClickListener()
 				{
 
 					private static final long serialVersionUID = 3543285666483221749L;
@@ -70,17 +79,34 @@ public class TableUsers implements Serializable
 					@Override
 					public void buttonClick(ClickEvent event)
 					{
-						System.out.println("submit");
+						if (user.getUsername().equals(TableUsers.this.user.getUsername()))
+						{
+							Notification notification = new Notification("Operazione non consentita", Type.TRAY_NOTIFICATION);
+							notification.setStyleName("mystyle");
+							notification.show(Page.getCurrent());
+							admin.setValue(true);
+						} else if (BeanDBManager.getInstance().setAdmin(user.getUsername(), admin.getValue()))
+						{
+							Notification notification = new Notification("Utente aggiornato con successo", Type.TRAY_NOTIFICATION);
+							notification.setStyleName("mystyle");
+							notification.show(Page.getCurrent());
+						} else
+						{
+							Notification notification = new Notification("Non è stato possibile aggiornare l'utente",
+									Type.TRAY_NOTIFICATION);
+							notification.setStyleName("mystyle");
+							notification.show(Page.getCurrent());
+						}
 
 					}
 				});
-				table.addItem(new Object[] { username, profileName, profileImage, admin, submit }, i);
+				table.addItem(new Object[] { username, profileName, profileImage, admin, save }, i);
 				i++;
 			}
 		}
 
 		table.setPageLength(table.size());
-		table.setWidth("100%");
+		table.setWidth("90%");
 	}
 
 	public Table getTable()

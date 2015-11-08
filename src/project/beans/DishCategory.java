@@ -4,7 +4,7 @@ import project.util.JsonConverter;
 
 public enum DishCategory
 {
-	MAIN_COURSE(1, "Main Course", 1), SECOND_COURSE(2, "Second Course", 2), SIDE_DISH(3, "Side Dish", 1);
+	PRIMI(1, "Primi", 1), SECONDI(2, "Secondi", 2), CONTORNI(3, "Contorni", 1);
 
 	protected final int id;
 	protected final String category;
@@ -36,12 +36,12 @@ public enum DishCategory
 	{
 		switch (category)
 		{
-		case "Main Course":
-			return MAIN_COURSE;
-		case "Second Course":
-			return SECOND_COURSE;
-		case "Side Dish":
-			return SIDE_DISH;
+		case "Primi":
+			return PRIMI;
+		case "Secondi":
+			return SECONDI;
+		case "Contorni":
+			return CONTORNI;
 		default:
 			return null;
 		}
@@ -53,11 +53,11 @@ public enum DishCategory
 		switch (category)
 		{
 		case "1":
-			return MAIN_COURSE;
+			return PRIMI;
 		case "2":
-			return SECOND_COURSE;
+			return SECONDI;
 		case "3":
-			return SIDE_DISH;
+			return CONTORNI;
 		default:
 			return null;
 		}

@@ -29,6 +29,7 @@ function login() {
 
 						$('#loginButton').replaceWith(toAdd);
 						$('#login').modal('hide');
+						reloadSingleDish();
 					}
 
 				}
@@ -111,6 +112,7 @@ function getUserInfo() {
 
 											$('#loginButton').replaceWith(toAdd);
 											$('#login').modal('hide');
+											reloadSingleDish();
 										}
 									}
 								});
@@ -121,5 +123,13 @@ function getUserInfo() {
 function loadUserDetails() {
 
 	$("#mainIndex").load("userProfile.jsp");
+
+}
+
+function reloadSingleDish() {
+	if ($("#singleDish").length) {
+		var dishID = $('.box10').attr('id');
+		showDish(dishID);
+	}
 
 }

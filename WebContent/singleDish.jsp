@@ -26,7 +26,7 @@
 	%>
 	<div class="row">
 		<div class="col-md-2"></div>
-		<div class="col-md-8">
+		<div class="col-md-8" id ="singleDish">
 			<div class="row">
 				<div class="box10" id=<%=dishNode.get(0).get("id")%>>
 					<h4><%=dishNode.get(0).get("name").asText()%></h4>

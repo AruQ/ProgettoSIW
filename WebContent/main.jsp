@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript">
-	var contextPath ='<%=request.getContextPath()%>	';
+	var contextPath ='<%=request.getContextPath()%>';
 </script>
 
 <style type="text/css">
@@ -59,33 +59,45 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var myLoadedData = localStorage["user"];
+			console.log(myLoadedData);
 
 			$("#mainIndex").load("home.jsp");
 
 			loadPositions();
+			if (myLoadedData != null && myLoadedData != "null") {
+				console.log(myLoadedData);
+				myLoadedData = eval("(" + myLoadedData + ")");
+				addUserPanel(myLoadedData["username"], myLoadedData["profileName"], myLoadedData["imageUrl"], myLoadedData["social"], myLoadedData["email"]);
+				addToSession(myLoadedData);
+
+			}
 
 		});
 		function logOut() {
 	<%session.setAttribute("user", null);%>
-		$("#userButton").replaceWith('<li id ="loginButton" data-toggle="modal" data-target="#login"><a href="#">LOG IN</a></li>');
+		localStorage["user"] = null;
+			$("#userButton").replaceWith('<li id ="loginButton" data-toggle="modal" data-target="#login"><a href="#">LOG IN</a></li>');
 			document.location.reload();
 
 		}
 		function loadHome() {
-			$("#mainIndex").load("home.jsp");
-			loadPositions();
+
+			document.location.reload();
 
 		}
 	</script>
 
 
-	<%DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-			//get current date time with Date()
-			Date date = new Date();
+	<%
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		//get current date time with Date()
+		Date date = new Date();
 
-			//get current date time with Calendar()
-			Calendar cal = Calendar.getInstance();
-			String currentData = dateFormat.format(cal.getTime());%>
+		//get current date time with Calendar()
+		Calendar cal = Calendar.getInstance();
+		String currentData = dateFormat.format(cal.getTime());
+	%>
 
 
 	<header role="banner" id="top" style="background: #ffffff url('images/red-area2.png') repeat; background-repeat: repeat-x;background-size: auto 100%;height:150px;"
@@ -169,7 +181,7 @@
 
 
 
-	
+
 	<!-- <div id="background">
 	</div> -->
 	<div class="row" style="margin-top: 150px; background-color: white""></div>
@@ -195,7 +207,7 @@
 
 
 					<div class="modal-body">
-						
+
 
 						<div class="contact-form">
 
@@ -213,7 +225,7 @@
 											<img src="images/lock.png" alt="">
 										</p></li>
 								</ul>
-								<a  type="submit" id="SignInButton" value="Sign In" onclick="login()">Sign In</a>
+								<a type="submit" id="SignInButton" value="Sign In" onclick="login()">Sign In</a>
 
 								<div class="clear"></div>
 							</form>

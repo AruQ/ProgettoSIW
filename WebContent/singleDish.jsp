@@ -48,7 +48,7 @@
 					</div>
 
 					<%
-						if (!dishNode.get(0).get("description").asText().equals("null"))
+						if (!dishNode.get(0).get("description").asText().equals("null") && !dishNode.get(0).get("description").asText().equals(""))
 						{
 					%>
 					<div class="col-sm-5" id="description"><%=dishNode.get(0).get("description").asText()%></div>

@@ -15,7 +15,8 @@ function showDish(dishID) {
 }
 
 function goToMap() {
-	// location.reload(true);
+
+	location.href = "#mapWrapper";
 
 }
 

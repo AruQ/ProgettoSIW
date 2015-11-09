@@ -37,7 +37,7 @@
 							<h2><%=objNode.get("name").asText()%></h2>
 						</div>
 						<div class="row">
-							<p><%=(objNode.get("description").asText().equals("null")) ? "Descrizione non disponibile" : objNode.get(
+							<p><%=(objNode.get("description").asText().equals("null") || objNode.get("description").asText().equals("")) ? "Descrizione non disponibile" : objNode.get(
 							"description").asText()%></p>
 						</div>
 					</div>

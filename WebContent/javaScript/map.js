@@ -16,14 +16,16 @@ function loadPositions() {
 				cafeteriaPosition[int] = obj;
 			}
 
+			// alert($("#map").length);
 			google.maps.event.addDomListener(window, 'load', initialize);
+
 		},
 	});
 }
 
 var minZoomLevel = 15;
 function initialize() {
-
+	console.log($("#map").length);
 	var mapCanvas = document.getElementById('map');
 	var mapOptions = {
 		center : new google.maps.LatLng(39.358078, 16.225709),
@@ -58,7 +60,7 @@ function initialize() {
 	}
 
 	// Bounds for North America
-	var strictBounds = new google.maps.LatLngBounds(new google.maps.LatLng(39.40431, 16.220664), new google.maps.LatLng(39.352879, 16.333407));
+	var strictBounds = new google.maps.LatLngBounds(new google.maps.LatLng(39.40431, 16.120664), new google.maps.LatLng(39.352879, 16.333407));
 
 	// Listen for the dragend event
 	google.maps.event.addListener(map, 'dragend', function() {
@@ -78,7 +80,7 @@ function initialize() {
 		if (y > maxY)
 			y = maxY;
 
-		// map.setCenter(new google.maps.LatLng(y, x));
+		map.setCenter(new google.maps.LatLng(y, x));
 	});
 
 	// Limit the zoom level

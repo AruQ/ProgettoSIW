@@ -6,7 +6,6 @@ function loadPositions() {
 		url : contextPath + '/CafeteriaPositionServlet',
 		success : function(data) {
 			var responseJson = eval('(' + data + ')');
-			alert("sono passato da qui");
 			for (var int = 0; int < responseJson.length; int++) {
 				var obj = {
 					name : responseJson[int]["name"],

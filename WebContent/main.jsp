@@ -23,10 +23,12 @@
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 <link href="css/signup.css" rel="stylesheet" type="text/css" />
+<link href="css/message.css" rel="stylesheet" type="text/css" />
 <script src="javaScript/login.js" type="text/javascript"></script>
 <script src="javaScript/signup.js" type="text/javascript"></script>
 <script src="javaScript/index.js" type="text/javascript"></script>
 <script src="javaScript/map.js" type="text/javascript"></script>
+<script src="javaScript/message.js" type="text/javascript"></script>
 
 
 
@@ -35,6 +37,25 @@
 
 </head>
 <body>
+	<div class="info message">
+		<h3>FYI, something just happened!</h3>
+		<p>This is just an info notification message.</p>
+	</div>
+
+	<div class="error message">
+		<h3>Error</h3>
+		<p>Username o password errati</p>
+	</div>
+
+	<div class="warning message">
+		<h3>Wait, I must warn you!</h3>
+		<p>This is just a warning notification message.</p>
+	</div>
+
+	<div class="success message">
+		<h3>Login avvenuto con successo</h3>
+
+	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -53,23 +74,18 @@
 		function loadHome() {
 			$("#mainIndex").load("home.jsp");
 			loadPositions();
-		
+
 		}
 	</script>
 
 
-	<%
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		//get current date time with Date()
-		Date date = new Date();
-		
+	<%DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			//get current date time with Date()
+			Date date = new Date();
 
-		//get current date time with Calendar()
-		Calendar cal = Calendar.getInstance();
-		String currentData = dateFormat.format(cal.getTime());
-
-	
-	%>
+			//get current date time with Calendar()
+			Calendar cal = Calendar.getInstance();
+			String currentData = dateFormat.format(cal.getTime());%>
 
 
 	<header role="banner" id="top" style="background: #ffffff url('images/red-area2.png') repeat; background-repeat: repeat-x;background-size: auto 100%;height:150px;"
@@ -153,16 +169,15 @@
 
 
 
+	
 	<!-- <div id="background">
 	</div> -->
 	<div class="row" style="margin-top: 150px; background-color: white""></div>
 	<div class="row">
+
 		<div class="col-lg-2"></div>
-		<div class="col-lg-8" id="mainIndex">
-
-
-		</div>
-			<div class="col-lg-2"></div>
+		<div class="col-lg-8" id="mainIndex"></div>
+		<div class="col-lg-2"></div>
 	</div>
 
 
@@ -174,12 +189,16 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
 						<span aria-hidden="true">&times;</span>
 					</button>
 
 
 					<div class="modal-body">
+						
+
 						<div class="contact-form">
+
 							<!-- start-form -->
 							<form class="contact_form" action="#" method="post" name="contact_form">
 								<h10>Login Into Your Account</h10>
@@ -194,7 +213,7 @@
 											<img src="images/lock.png" alt="">
 										</p></li>
 								</ul>
-								<a type="submit" id="SignInButton" value="Sign In" onclick="login()">Sign In</a>
+								<a  type="submit" id="SignInButton" value="Sign In" onclick="login()">Sign In</a>
 
 								<div class="clear"></div>
 							</form>

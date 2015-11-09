@@ -6,10 +6,7 @@
 		//	loadPositions();
 		});
 	</script>
- -->
-	<%
-		System.out.println("UTENTE NELLA HOME " + session.getAttribute("user"));
-	%>
+
   
   <div class="row" id="sliderWrapper">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">

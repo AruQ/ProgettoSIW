@@ -28,7 +28,7 @@ public class Login extends HttpServlet
 	{
 		User user = null;
 
-		if (req.getParameter("facebook").equals("true"))
+		if (req.getParameter("social").equals("true"))
 		{
 
 			String id = req.getParameter("id");
@@ -51,6 +51,10 @@ public class Login extends HttpServlet
 			resp.setCharacterEncoding("UTF-8");
 			resp.getWriter().write(user.toJSON());
 
+		}
+ else
+		{
+			resp.getWriter().write("{'user':'null'}");
 		}
 
 

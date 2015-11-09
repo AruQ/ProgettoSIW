@@ -18,3 +18,16 @@ function goToMap() {
 	// location.reload(true);
 
 }
+
+function setMessage(type) {
+	hideAllMessages();
+	$('.' + type).animate({
+		top : "0"
+	}, 500);
+	setTimeout(function() {
+		$('.' + type).animate({
+			top : -$(this).outerHeight()
+		}, 600);
+	}, 2000);
+
+}

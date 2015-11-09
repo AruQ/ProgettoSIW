@@ -1,5 +1,4 @@
 function init() {
-
 	$.ajax({
 		type : "POST",
 		url : contextPath + '/DishServlet',

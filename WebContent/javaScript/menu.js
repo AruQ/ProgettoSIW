@@ -17,6 +17,7 @@ function checkData(fullDate) {
 	return false;
 }
 $(document).ready(function() {
+
 	$.ajax({
 		type : "POST",
 		url : contextPath + '/MenuServlet',
@@ -39,7 +40,7 @@ $(function() {
 
 		firstDay : 1,
 		onSelect : function(date) {
-			$("#mainIndex").load("menu.jsp?date=" + date + "&dateFormat=" + "MM/dd/yyyy");
+			$("#dailyDishes").load("dailyMenu.jsp?date=" + date + "&dateFormat=" + "MM/dd/yyyy");
 		},
 		beforeShowDay : function(fullDate) {
 
@@ -54,3 +55,7 @@ $(function() {
 		}
 	});
 });
+
+function replaceMenu() {
+
+}

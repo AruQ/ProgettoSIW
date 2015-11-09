@@ -6,7 +6,7 @@
     <welcome-file>main.jsp</welcome-file>
   </welcome-file-list>
   
- <!--  <error-page>
+ <error-page>
     <location>/error.html</location>
-</error-page> -->
+</error-page> 
 </web-app>

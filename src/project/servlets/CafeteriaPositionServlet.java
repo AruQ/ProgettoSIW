@@ -26,7 +26,6 @@ public class CafeteriaPositionServlet extends HttpServlet
 	{
 
 		String allCafeterias = JsonDBManager.getInstance().getAllCafeterias();
-		System.err.println("sono nella servlet delle posizioni delle mense");
 		resp.getWriter().write(allCafeterias);
 	}
 	

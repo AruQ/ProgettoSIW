@@ -69,10 +69,11 @@
 							String userRating = JsonDBManager.getInstance().getDishRatingByUser(Integer.parseInt(request.getParameter("id")), user);
 
 							JsonNode userRatingNode = new ObjectMapper().readTree(userRating);
+					System.out.println(userRatingNode.get(0).get("points"));
 					%>
 					<div class="rating">
 						<input id="input-21e" onchange='addRating(<%=dishNode.get(0).get("id")%>,"<%=((User) session.getAttribute("user")).getUsername()%>")'
-							value=<%=userRatingNode.size() > 0 ? userRatingNode.get(0).get("points").asInt() : 0%> type="number" class="rating form-control hide" min="0" max="5" step="0.5" data-size="xs">
+							value=<%=userRatingNode.size() > 0 ? userRatingNode.get(0).get("points") : 0%> type="number" class="rating form-control hide" min="0" max="5" step="0.5" data-size="xs">
 
 
 					</div>

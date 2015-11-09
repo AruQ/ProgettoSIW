@@ -37,12 +37,12 @@
 
 </head>
 <body>
-	<div class="info message">
+	<div class="info message ">
 		<h3>FYI, something just happened!</h3>
 		<p>This is just an info notification message.</p>
 	</div>
 
-	<div class="error message">
+	<div class="error message loginError">
 		<h3>Error</h3>
 		<p>Username o password errati</p>
 	</div>
@@ -54,6 +54,11 @@
 
 	<div class="success message">
 		<h3>Login avvenuto con successo</h3>
+
+	</div>
+	
+		<div class="success message rateAdded">
+		<h3>Valutazione aggiunta con successo</h3>
 
 	</div>
 

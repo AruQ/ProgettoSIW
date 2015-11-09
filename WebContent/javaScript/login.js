@@ -14,7 +14,7 @@ function login() {
 			var responseJson = eval("(" + data + ")");
 			if (responseJson != null) {
 				if (responseJson["user"] == "null") {
-					setMessage("error");
+					setMessage("loginError");
 
 				} else {
 

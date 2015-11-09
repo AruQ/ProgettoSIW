@@ -110,6 +110,7 @@ function addRating(dishID, username) {
 
 		},
 		success : function(data) {
+			setMessage("rateAdded");
 
 		}
 

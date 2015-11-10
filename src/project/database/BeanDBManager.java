@@ -486,28 +486,24 @@ public class BeanDBManager extends AbstractDBManager
 
 	public boolean deleteDish(Dish dish)
 	{
-		final String query = "DELETE FROM DISH WHERE ID=?";
-		final Connection conn = createConnection();
-
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		String procedure = "{call deleteDish(?)}";
+		CallableStatement callableStatement = null;
+		final Connection connection = createConnection();
 		try
 		{
-			ps = conn.prepareStatement(query);
-			ps.setInt(1, dish.getId());
+			callableStatement = connection.prepareCall(procedure);
+			callableStatement.setInt(1, dish.getId());
 
-			ps.executeQuery();
+			callableStatement.execute();
 			return true;
-
 		} catch (final SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally
 		{
-			closeResultSet(rs);
-			closeStatement(ps);
-			closeConnection(conn);
+			closeStatement(callableStatement);
+			closeConnection(connection);
 		}
 		return false;
 
@@ -760,7 +756,7 @@ public class BeanDBManager extends AbstractDBManager
 
 	}
 
-	public void deleteDishToMenu(String date, int dishID)
+	public void deleteDishFromMenu(String date, int dishID)
 	{
 		final String query = "DELETE FROM DAILYMENU WHERE MENUDATE=? AND DISH =?";
 

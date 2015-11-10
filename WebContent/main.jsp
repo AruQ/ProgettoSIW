@@ -37,22 +37,17 @@
 
 </head>
 <body>
-	<div class="info message ">
-		<h3>FYI, something just happened!</h3>
-		<p>This is just an info notification message.</p>
-	</div>
-
 	<div class="error message loginError">
 		<h3>Error</h3>
 		<p>Username o password errati</p>
 	</div>
-
-	<div class="warning message">
-		<h3>Wait, I must warn you!</h3>
-		<p>This is just a warning notification message.</p>
+		<div class="error message signUpError">
+		<h3>Error</h3>
+		<p>Inserisci prima tutti i campi</p>
 	</div>
 
-	<div class="success message">
+
+	<div class="success message loginSuccess">
 		<h3>Login avvenuto con successo</h3>
 
 	</div>
@@ -61,7 +56,7 @@
 		<h3>Valutazione aggiunta con successo</h3>
 
 	</div>
-
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var myLoadedData = localStorage["user"];
@@ -70,14 +65,13 @@
 			$("#mainIndex").load("home.jsp");
 
 			loadPositions();
-			if (myLoadedData != null && myLoadedData != "null") {
+		 	if (myLoadedData != null && myLoadedData != "null") {
 				console.log(myLoadedData);
 				myLoadedData = eval("(" + myLoadedData + ")");
 				addUserPanel(myLoadedData["username"], myLoadedData["profileName"], myLoadedData["imageUrl"], myLoadedData["social"], myLoadedData["email"]);
 				addToSession(myLoadedData);
 
 			}
-
 		});
 		function logOut() {
 	<%session.setAttribute("user", null);%>

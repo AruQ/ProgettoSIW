@@ -80,12 +80,9 @@ function getUserInfo() {
 			},
 			success : function(data) {
 
-				// $('#login').modal('hide');
-				// alert(data);
-				// location.reload(true);
 				var responseJson = eval("(" + data + ")");
 				if (responseJson != null) {
-					localStorage["user"] = responseJson;
+					localStorage["user"] = data;
 					addUserPanel(responseJson["username"], responseJson["profileName"], responseJson["imageUrl"], responseJson["social"], responseJson["email"]);
 
 					$('#login').modal('hide');

@@ -1,17 +1,29 @@
+var canSignup = false;
 function submitSignup() {
-	$.ajax({
-		type : "POST",
-		url : contextPath + '/Signup',
-		data : {
-			'username' : $('#usernameSignup').val(),
-			'password' : $('#passwordSignup').val(),
-			'email' : $("#mailSignup").val()
-		},
-		success : function(data) {
-			console.log("sono in submit Signup");
-			$('#signup').modal('hide');
-		}
-	});
+	if (canSignup) {
+		$.ajax({
+			type : "POST",
+			url : contextPath + '/Signup',
+			data : {
+				'username' : $('#usernameSignup').val(),
+				'password' : $('#passwordSignup').val(),
+				'email' : $("#mailSignup").val()
+			},
+			success : function(data) {
+
+				localStorage["user"] = data;
+				var responseJson = eval("(" + data + ")");
+				if (responseJson != null) {
+					addUserPanel(responseJson["username"], responseJson["profileName"], responseJson["imageUrl"], responseJson["social"], responseJson["email"]);
+				}
+				$('#signup').modal('hide');
+				reloadSingleDish();
+			}
+		});
+	} else {
+
+		setMessage("signUpError");
+	}
 }
 
 function checkInputs() {
@@ -70,9 +82,11 @@ function checkInputs() {
 
 			}
 			if (responseUsername === "true" && responseEmail === "true" && validPassword == true) {
+
 				$("#submitSignup").prop("disabled", false);
+				canSignup = true;
 			} else {
-				$("#submitSignup").prop("disabled", true);
+				canSignup = false;
 
 			}
 

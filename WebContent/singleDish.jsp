@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" /> -->
+<!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />  -->
 <script src="javaScript/dishes.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/dishes.css" />
 <link rel="stylesheet" type="text/css" href="css/star-rating.css" />
@@ -69,7 +69,6 @@
 							String userRating = JsonDBManager.getInstance().getDishRatingByUser(Integer.parseInt(request.getParameter("id")), user);
 
 							JsonNode userRatingNode = new ObjectMapper().readTree(userRating);
-					System.out.println(userRatingNode.get(0).get("points"));
 					%>
 					<div class="rating">
 						<input id="input-21e" onchange='addRating(<%=dishNode.get(0).get("id")%>,"<%=((User) session.getAttribute("user")).getUsername()%>")'

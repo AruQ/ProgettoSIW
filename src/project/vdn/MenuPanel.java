@@ -44,9 +44,9 @@ public class MenuPanel extends VerticalLayout
 	@SuppressWarnings("deprecation")
 	private void initPanel()
 	{
-		table = new Table();
-		selectedDishes = new HashMap<Integer, CheckBox>();
 
+		selectedDishes = new HashMap<Integer, CheckBox>();
+		table = new Table();
 
 		// Create a DateField with the default style
 		date = new DateField();
@@ -107,7 +107,7 @@ public class MenuPanel extends VerticalLayout
 					} else
 					{
 
-						BeanDBManager.getInstance().deleteDishToMenu(currentDate, key);
+						BeanDBManager.getInstance().deleteDishFromMenu(currentDate, key);
 					}
 
 				}
@@ -160,6 +160,7 @@ public class MenuPanel extends VerticalLayout
 			}
 		}
 
+		table.setPageLength(table.size());
 		this.setImmediate(true);
 
 	}

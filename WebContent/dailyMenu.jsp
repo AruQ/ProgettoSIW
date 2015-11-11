@@ -1,5 +1,7 @@
 <%@page import="project.database.*, java.text.*,java.util.*,project.beans.*,com.fasterxml.jackson.databind.*"%>
 
+
+
 <%
 		String selectedDate = request.getParameter("date");
 		String dateFormatString = request.getParameter("dateFormat");
@@ -31,7 +33,7 @@
 				<div class="col-md-6" id='singleDish'>
 				
 					<div class="col-md-5">
-				<input type="checkbox" id="css" value="">
+				<input type="checkbox" id="checkboxDish<%=objNode.get("id").asText() %>" value="" onchange="setDishSelected(<%=objNode.get("id").asText() %>,<%=objNode.get("category").asText() %>)">
 				
 						<img onclick="showDish(<%=objNode.get("id").asText()%>)" id="preview" src=<%=objNode.get("image_url").asText()%> alt=<%=objNode.get("name").asText()%> class="img-circle" />
 					</div>

@@ -37,6 +37,10 @@
 
 </head>
 <body>
+<div class="info message totalPoints">
+		<h3>Combinazione Valida</h3>
+		<p id="totalPointsText">Totale Punti </p>
+	</div>
 	<div class="error message loginError">
 		<h3>Error</h3>
 		<p>Username o password errati</p>
@@ -72,6 +76,10 @@
 				addToSession(myLoadedData);
 
 			}
+		 	
+
+		 	
+
 		});
 		function logOut() {
 	<%session.setAttribute("user", null);%>

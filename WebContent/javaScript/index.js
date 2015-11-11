@@ -16,7 +16,22 @@ function showDish(dishID) {
 
 function goToMap() {
 
-	location.href = "#mapWrapper";
+	$.ajax({
+		type : "POST",
+		url : contextPath + '/TotalPointsServlet',
+		/*
+		 * data : { 'username' : username, 'dishID' : dishID, 'time' : time
+		 *  },
+		 */
+		success : function(data) {
+			alert("CIAO");
+
+			// $("#mainIndex").load("singleDish.jsp?id=" + dishID);
+
+		}
+
+	});
+	// location.href = "#mapWrapper";
 
 }
 

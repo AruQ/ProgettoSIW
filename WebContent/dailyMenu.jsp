@@ -3,64 +3,78 @@
 
 
 <%
-		String selectedDate = request.getParameter("date");
-		String dateFormatString = request.getParameter("dateFormat");
+	String selectedDate = request.getParameter("date");
+	String dateFormatString = request.getParameter("dateFormat");
 
-		DateFormat fromFormat = new SimpleDateFormat(dateFormatString);
-		DateFormat toFormat = new SimpleDateFormat("dd-MM-yyyy");
-		Date date = fromFormat.parse(selectedDate);
-		String currentDate = toFormat.format(date);
+	DateFormat fromFormat = new SimpleDateFormat(dateFormatString);
+	DateFormat toFormat = new SimpleDateFormat("dd-MM-yyyy");
+	Date date = fromFormat.parse(selectedDate);
+	String currentDate = toFormat.format(date);
+%>
+<h1 id="data"><%=currentDate%></h1>
+
+<%
+	String toPrint = JsonDBManager.getInstance().getDishesByDay(currentDate);
+
+	JsonNode arrNode = new ObjectMapper().readTree(toPrint);
+	if (arrNode.isArray())
+	{
+		int dishesCount = 0;
+		for (final JsonNode objNode : arrNode)
+		{
+			if (dishesCount % 2 == 0)
+			{
+%>
+
+<div class="row">
+	<%
+		}
 	%>
-			<h1 id="data"><%=currentDate%></h1>
+	<div class="col-md-6" id='singleDish'>
+
+		<div class="col-md-5">
+			<input type="checkbox" id="checkboxDish<%=objNode.get("id").asText()%>" value="" onchange="setDishSelected(<%=objNode.get("id").asText()%>,<%=objNode.get("category").asText()%>)">
 
 			<%
-				String toPrint = JsonDBManager.getInstance().getDishesByDay(currentDate);
-
-				JsonNode arrNode = new ObjectMapper().readTree(toPrint);
-				if (arrNode.isArray())
-				{
-					int dishesCount = 0;
-					for (final JsonNode objNode : arrNode)
-					{
-						if (dishesCount % 2 == 0)
+				if (objNode.get("image_url").asText().equals("null") || objNode.get("image_url").asText().equals(""))
+						{
+			%>
+			<img onclick="showDish(<%=objNode.get("id").asText()%>)" id="preview" src='images/missing.png' alt='<%=objNode.get("name").asText()%>' class="img-circle" />
+			<%
+				} else
 						{
 			%>
 
+			<img onclick="showDish(<%=objNode.get("id").asText()%>)" id="preview" src=<%=objNode.get("image_url").asText()%> alt=<%=objNode.get("name").asText()%> class="img-circle" />
+
+			<%
+				}
+			%>
+		</div>
+
+		<div class="col-md-7">
 			<div class="row">
-				<%
-					}
-				%>
-				<div class="col-md-6" id='singleDish'>
-				
-					<div class="col-md-5">
-				<input type="checkbox" id="checkboxDish<%=objNode.get("id").asText() %>" value="" onchange="setDishSelected(<%=objNode.get("id").asText() %>,<%=objNode.get("category").asText() %>)">
-				
-						<img onclick="showDish(<%=objNode.get("id").asText()%>)" id="preview" src=<%=objNode.get("image_url").asText()%> alt=<%=objNode.get("name").asText()%> class="img-circle" />
-					</div>
-
-					<div class="col-md-7">
-						<div class="row">
-							<h2><%=objNode.get("name").asText()%></h2>
-						</div>
-						<div class="row">
-							<p><%=(objNode.get("description").asText().equals("null") || objNode.get("description").asText().equals("")) ? "Descrizione non disponibile" : objNode.get(
-							"description").asText()%></p>
-						</div>
-					</div>
-				</div>
-				<%
-					if (dishesCount % 2 != 0)
-							{
-				%>
-
+				<h2><%=objNode.get("name").asText()%></h2>
 			</div>
-			<%
-				}
-			%>
+			<div class="row">
+				<p><%=(objNode.get("description").asText().equals("null") || objNode.get("description").asText().equals("")) ? "Descrizione non disponibile"
+							: objNode.get("description").asText()%></p>
+			</div>
+		</div>
+	</div>
+	<%
+		if (dishesCount % 2 != 0)
+				{
+	%>
 
-			<%
-				dishesCount++;
-					}
-				}
-			%>
+</div>
+<%
+	}
+%>
+
+<%
+	dishesCount++;
+		}
+	}
+%>
 

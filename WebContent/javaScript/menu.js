@@ -36,8 +36,14 @@ function getTotalPoints() {
 		success : function(data) {
 			var responseJson = eval("(" + data + ")");
 			if (responseJson != null) {
-				$("p#totalPointsText").text("Totale punti " + responseJson["totalPoints"]);
-				setMessage("totalPoints");
+
+				if (responseJson["valid"] == "true") {
+					$("p#totalPointsText").text("Totale punti " + responseJson["totalPoints"]);
+					setMessage("totalPoints");
+				} else {
+					$("p#errorPointsText").text("Hai superato di " + (responseJson["totalPoints"] - responseJson["maxPoints"]) + " i punti massimi consenti (" + responseJson["maxPoints"] + ")");
+					setMessage("errorPoints");
+				}
 			}
 		}
 	});

@@ -33,19 +33,22 @@
 
 
 
-
+<%
+	String userAgent = request.getHeader("user-agent");
+	boolean mobile = userAgent.matches(".*Android.*");
+%>
 
 </head>
 <body>
-<div class="info message totalPoints">
+	<div class="info message totalPoints">
 		<h3>Combinazione Valida</h3>
-		<p id="totalPointsText">Totale Punti </p>
+		<p id="totalPointsText">Totale Punti</p>
 	</div>
 	<div class="error message loginError">
 		<h3>Error</h3>
 		<p>Username o password errati</p>
 	</div>
-		<div class="error message signUpError">
+	<div class="error message signUpError">
 		<h3>Error</h3>
 		<p>Inserisci prima tutti i campi</p>
 	</div>
@@ -55,12 +58,17 @@
 		<h3>Login avvenuto con successo</h3>
 
 	</div>
-	
-		<div class="success message rateAdded">
-		<h3>Valutazione aggiunta con successo</h3>
 
+	<div class="success message rateAdded">
+
+		<h3>Valutazione aggiunta con successo</h3>
 	</div>
-	
+
+	<div class="warning message errorPoints">
+		<h3>Combinazione non valida</h3>
+		<p id="errorPointsText"></p>
+	</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var myLoadedData = localStorage["user"];
@@ -69,16 +77,13 @@
 			$("#mainIndex").load("home.jsp");
 
 			loadPositions();
-		 	if (myLoadedData != null && myLoadedData != "null") {
+			if (myLoadedData != null && myLoadedData != "null") {
 				console.log(myLoadedData);
 				myLoadedData = eval("(" + myLoadedData + ")");
 				addUserPanel(myLoadedData["username"], myLoadedData["profileName"], myLoadedData["imageUrl"], myLoadedData["social"], myLoadedData["email"]);
 				addToSession(myLoadedData);
 
 			}
-		 	
-
-		 	
 
 		});
 		function logOut() {
@@ -125,52 +130,7 @@
 			<li><a onclick="loadDishes()"><i class="fa fa-cutlery fa-lg"></i> DISHES</a><span></span></li>
 
 		</ul>
-
-		<!-- 
-		<div class="user-login hidden-xs">
- <ul class="nav navbar-nav navbar-right navbar-nav-fancy">
- <li id="userButton" class="dropdown dropdown-avatar"><a data-toggle="dropdown" class=""><span>Benvenuto,&nbsp;Blue Rose<i class="caret"></i></span></a>
- <ul class="dropdown-menu user-login-drop arrow-up">
- <li><a href="./ucp.php?i=pm&amp;folder=inbox"> Hai <strong>0</strong> nuovi messaggi privati
- </a></li>
- <li>
- <div class="navbar-wrapper">
- <div class="navbar-content navbar-avatar">
- <div class="row">
- <div class="col-md-5 col-xs-7">
- <img src="http://i262.photobucket.com/albums/ii103/Paolina93/Altro/33_zps292be479.jpg" width="100" height="100" alt="Avatar utente">
- <p class="text-center">
- <a class="" href="./ucp.php?i=profile&amp;mode=avatar"> <small>Cambia Avatar</small>
- </a>
- </p>
- </div>
- <div class="col-md-7 col-xs-5">
- <span>Blue Rose</span>
-
- <p class="text-muted small">tsunade_93@hotmail.it</p>
- <div class="divider"></div>
- <a class="btn btn-success btn-sm btn-block" href="./ucp.php"><i class="fa fa-user"></i>&nbsp;Pannello di Controllo</a>
- </div>
- </div>
- </div>
- <div class="navbar-footer">
- <div class="navbar-footer-content">
- <div class="row">
- <div class="col-md-6 col-xs-6">
- <a class="btn btn-default btn-sm" href="./ucp.php?i=profile&amp;mode=reg_details">Cambia Password</a>
- </div>
- <div class="col-md-6 col-xs-6">
- <a class="btn btn-default btn-sm pull-right" href="./ucp.php?mode=logout&amp;sid=7d4d7e8d35445e440d1717f033916229">Logout</a>
- </div>
- </div>
- </div>
- </div>
- </div>
- </li>
- </ul></li>
- </ul>
- </div> -->
-
+		<div></div>
 
 		<div class="user-login hidden-xs">
 			<ul id="navbarul" class="nav navbar-nav navbar-right navbar-nav-fancy">
@@ -185,14 +145,9 @@
 	</header>
 
 
-
-
-
-
-	<!-- <div id="background">
-	</div> -->
 	<div class="row" style="margin-top: 150px; background-color: white""></div>
 	<div class="row">
+
 
 		<div class="col-lg-2"></div>
 		<div class="col-lg-8" id="mainIndex"></div>

@@ -26,13 +26,13 @@
 			<img src="images/menuLogo.png" />
 			
 
-				<div class="col-xs-6" style="margin: 0">
+				<div class="col-xs-7 col-md-10" style="margin: 0">
 				<div class="container">
 					<input type="image" id="datepicker" style="width: 40px; height: 40px;" src="http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/calendar.png">
 				</div>
 			</div>
-				<div class="col-xs-6" style="text-align: right">
-					<a href="#" id="myButton" onclick="getTotalPoints()">TOTAL POINTS</a>
+				<div class="col-xs-5 col-md-2" >
+					<a href="#" id="myButton"  style="text-align: center" onclick="getTotalPoints()">TOTAL POINTS</a>
 				</div>
 		</div>
 

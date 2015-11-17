@@ -8,10 +8,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String userAgent = request.getHeader("user-agent");
+	boolean mobile = userAgent.matches(".*Android.*");
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />  -->
 <script src="javaScript/dishes.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="css/dishes.css" />
+<%
+	if (mobile)
+	{
+%>
+<link href="css/mobile/dishes.css" rel="stylesheet" type="text/css" />
+<%
+	} else
+	{
+%>
+<link href="css/dishes.css" rel="stylesheet" type="text/css" />
+<%
+	}
+%>
 <link rel="stylesheet" type="text/css" href="css/star-rating.css" />
 <script src="javaScript/star-rating.js" type="text/javascript"></script>
 
@@ -20,21 +36,40 @@
 <body>
 
 	<%
+		User user = (User) session.getAttribute("user");
+	System.out.println ("sono dish id "+request.getParameter("id"));
 		String jSonDish = JsonDBManager.getInstance().getDishFromID(Integer.parseInt(request.getParameter("id")));
 
 		JsonNode dishNode = new ObjectMapper().readTree(jSonDish);
 	%>
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8" id ="singleDish">
+		<div class="col-xs-0 col-md-2"></div>
+		<div class="col-xs-12 col-md-8" id="singleDish">
 			<div class="row">
 				<div class="box10" id=<%=dishNode.get(0).get("id")%>>
 					<h4><%=dishNode.get(0).get("name").asText()%></h4>
-					<div class="col-sm-4">
+								<%
+
+						if (user != null && mobile)
+						{
+							String userRating = JsonDBManager.getInstance().getDishRatingByUser(Integer.parseInt(request.getParameter("id")), user);
+
+							JsonNode userRatingNode = new ObjectMapper().readTree(userRating);
+					%>
+					<div class="rating">
+						<input id="input-21e" onchange='addRating(<%=dishNode.get(0).get("id")%>,"<%=((User) session.getAttribute("user")).getUsername()%>")'
+							value=<%=userRatingNode.size() > 0 ? userRatingNode.get(0).get("points") : 0%> type="number" class="rating form-control hide" min="0" max="5" step="0.5" data-size="xs">
+
+
+					</div>
+					<%
+						}
+					%>
+					<div class="col-xs-4 col-sm-4">
+			
 						<%
-							if (dishNode.get(0).get("image_url").asText().equals( "null") || dishNode.get(0).get("image_url").asText().equals(""))
+							if (dishNode.get(0).get("image_url").asText().equals("null") || dishNode.get(0).get("image_url").asText().equals(""))
 							{
-								
 						%>
 						<img id="preview" src="images/missing.png" alt=<%=dishNode.get(0).get("name").asText()%> class="img-circle" />
 						<%
@@ -51,20 +86,16 @@
 						if (!dishNode.get(0).get("description").asText().equals("null") && !dishNode.get(0).get("description").asText().equals(""))
 						{
 					%>
-					<div class="col-sm-5" id="description"><%=dishNode.get(0).get("description").asText()%></div>
+					<div class="col-xs-8 col-sm-5" id="description"><%=dishNode.get(0).get("description").asText()%></div>
 					<%
 						} else
 						{
 					%>
-					<div class="col-sm-4" style="padding-bottom: 10%" id="description">Descrizione non disponibile</div>
+					<div class="col-xs-8 col-sm-4" style="padding-bottom: 10%" id="description">Descrizione non disponibile</div>
 					<%
 						}
-					%>
 
-					<%
-						User user = (User) session.getAttribute("user");
-						System.out.println(user);
-						if (user != null)
+						if (user != null && !mobile)
 						{
 							String userRating = JsonDBManager.getInstance().getDishRatingByUser(Integer.parseInt(request.getParameter("id")), user);
 
@@ -104,7 +135,7 @@
 				}
 			%>
 			<div class="row">
-				<span>inside the element</span>
+				<span></span>
 			</div>
 			<div class="row " id="comments">
 				<%
@@ -128,7 +159,7 @@
 				<div class="row">
 
 					<div id="comment<%=commentID%>">
-						<div class="col-sm-2">
+						<div class="col-xs-3 col-sm-2">
 							<div class="thumbnail">
 
 								<img class="img-responsive user-photo" src=<%=(urlImage == null) ? "https://ssl.gstatic.com/accounts/ui/avatar_2x.png" : urlImage%>>
@@ -137,7 +168,7 @@
 						</div>
 						<!-- /col-sm-1 -->
 
-						<div class="col-sm-10">
+						<div class="col-xs-9 col-sm-10">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<%
@@ -183,7 +214,7 @@
 
 			</div>
 		</div>
-		<div class="col-md-2"></div>
+		<div class="col-xs-0 col-md-2"></div>
 	</div>
 </body>
 </html>

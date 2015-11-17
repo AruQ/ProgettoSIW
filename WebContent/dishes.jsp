@@ -4,14 +4,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script type="text/javascript">
+<%-- <script type="text/javascript">
 
 var contextPath = "<%=request.getContextPath()%>";
-</script>
+</script> --%>
+
+<%
+	String userAgent = request.getHeader("user-agent");
+	boolean mobile = userAgent.matches(".*Android.*");
+%>
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 
 <script src="javaScript/dishes.js" type="text/javascript"></script>
+<%
+	if (mobile) {
+%>
+<link rel="stylesheet" type="text/css" href="css/mobile/dishes.css" />
+<%
+	} else {
+%>
 <link rel="stylesheet" type="text/css" href="css/dishes.css" />
+<%
+	}
+%>
 <link rel="stylesheet" type="text/css" href="css/star-rating.css" />
 <script src="javaScript/star-rating.js" type="text/javascript"></script>
 
@@ -30,13 +45,13 @@ var contextPath = "<%=request.getContextPath()%>";
 	</script>
 
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
+		<div class="col-xs-0 col-md-2"></div>
+		<div class="col-xs-12 col-md-8">
 
 			<div class="row">
 				<div id="dishes"></div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-xs-0 col-md-2"></div>
 		</div>
 
 	</div>

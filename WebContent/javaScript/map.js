@@ -80,7 +80,7 @@ function initialize() {
 		if (y > maxY)
 			y = maxY;
 
-		map.setCenter(new google.maps.LatLng(y, x));
+		// map.setCenter(new google.maps.LatLng(y, x));
 	});
 
 	// Limit the zoom level

@@ -29,7 +29,7 @@ h4:after {
 	margin: 35px auto;
 	width: 100%;
 	z-index: 2;
-	min-height: 310px;
+	 min-height: 450px; 
 	padding: 10px;
 	position: relative;
 	background: -webkit-gradient(linear, 100% 100%, 50% 10%, from(#fff), to(#f3f3f3),
@@ -74,15 +74,24 @@ h4:after {
 .box10 #preview {
 	width: 200px;
 	height: 200px;
+	margin-top: 7%;
+}
+
+#singleDish #preview{
+	width: 150px;
+	height: 150px;
+	margin-right:-40px;
+	margin-top: 80%;
 }
 
 .box10 #description {
-	margin-top: 2%;
+	margin: 0 auto;
+	text-align:center;
 }
 
- .box10 #rating {
+.box10 #rating {
 	float: right;
-} 
+}
 
 .box10 p {
 	margin-top: 15px;
@@ -188,10 +197,15 @@ h4:after {
 /* COMMET BOX*/
 .thumbnail {
 	padding: 0px;
+	margin-left: -40px;
+	margin-top:25%;
+	width: 100px;
+	height: 100px;
 }
 
 .panel {
 	position: relative;
+	margin-right:-17%;
 }
 
 .panel>.panel-heading:after, .panel>.panel-heading:before {
@@ -228,7 +242,7 @@ h4:after {
 	-ms-box-shadow: none;
 	-o-box-shadow: none;
 	box-shadow: none;
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 }
 
 body .no-padding {
@@ -300,7 +314,7 @@ body .no-padding {
 	letter-spacing: 0.3px;
 	margin-right: 9px;
 	margin: 1% 0;
-	margin-left: 90%;
+	margin-left: 75%;
 	padding: 10px 15px;
 }
 

@@ -13,6 +13,9 @@ function init() {
 					var dishes = responseJson[i]["dishes"];
 					for (var j = 0; j < dishes.length; j++) {
 						toAppend += '<div class="box10" id ="' + dishes[j]["id"] + '"><h4 onclick="showDish(' + dishes[j]["id"] + ')">' + dishes[j]["name"] + '</h4>';
+						if (mobile) {
+							toAppend += '<div id="rating" class="rating-container rating-gly-star col-lg-2" data-content="" ><div class="rating-stars"  data-content="" style="width:' + percentuage + '%";"></div></div>';
+						}
 						toAppend += '<div class="col-lg-4"><img id="preview" src=" ';
 						if (dishes[j]["image_url"] == null || dishes[j]["image_url"] == "") {
 							toAppend += "images/missing.png";
@@ -21,13 +24,14 @@ function init() {
 						}
 						toAppend += '"alt="' + dishes[j]["name"] + '" class="img-circle"/></div>';
 						var percentuage = (57 * dishes[j]["avg_rating"]) / 5;
-						if (dishes[j]["description"] == null) {
+						if (dishes[j]["description"] == null || dishes[j]["description"] == "") {
 							toAppend += '<div class="col-lg-6" id="description">Descrizione non disponibile</div>';
 						} else {
 							toAppend += '<div class="col-lg-6" style="padding-bottom: 10%" id="description">' + dishes[j]["description"] + '</div>';
 						}
-						toAppend += '<div id="rating" class="rating-container rating-gly-star col-lg-2" data-content="" ><div class="rating-stars"  data-content="" style="width:' + percentuage + '%";"></div></div>';
-
+						if (!mobile) {
+							toAppend += '<div id="rating" class="rating-container rating-gly-star col-lg-2" data-content="" ><div class="rating-stars"  data-content="" style="width:' + percentuage + '%";"></div></div>';
+						}
 						toAppend += '</div>';
 					}
 
@@ -64,12 +68,12 @@ function addComment(dishID, username) {
 
 				if (responseJson.length != 0) {
 
-					var toPrepend = '<div class="row"><div id= comment' + commentAddedID + '> <div class="col-sm-2"><div class="thumbnail"><img class="img-responsive user-photo" src=';
+					var toPrepend = '<div class="row"><div id= comment' + commentAddedID + '> <div class="col-xs-3 col-sm-2"><div class="thumbnail"><img class="img-responsive user-photo" src=';
 					if (responseJson[0]["image_url"] == null)
 						toPrepend += "images/profileUnknown.png>";
 					else
 						toPrepend += "'" + responseJson[0]["image_url"] + "'>";
-					toPrepend += '</div></div><div class="col-sm-10"><div class="panel panel-default"> <div class="panel-heading">';
+					toPrepend += '</div></div><div class="col-xs-9 col-sm-10"><div class="panel panel-default"> <div class="panel-heading">';
 
 					if (responseJson[0]["social"] == true) {
 						toPrepend += "<strong>" + responseJson[0]["profile_name"] + "</strong>";
@@ -167,12 +171,12 @@ function updateComment(commentID, dishID, username, time, urlImage, profile_name
 
 				if (responseJson["updated"] === 'true') {
 
-					var toAppend = '<div id=' + commentID + '> <div class="col-sm-2"><div class="thumbnail"><img class="img-responsive user-photo" src=';
+					var toAppend = '<div id=' + commentID + '> <div class="col-xs-3 col-sm-2"><div class="thumbnail"><img class="img-responsive user-photo" src=';
 					if (urlImage == null)
 						toAppend += "images/profileUnknown.png>";
 					else
 						toAppend += "'" + urlImage + "'>";
-					toAppend += '</div></div><div class="col-sm-10"><div class="panel panel-default"> <div class="panel-heading">';
+					toAppend += '</div></div><div class="col-xs-9 col-sm-10"><div class="panel panel-default"> <div class="panel-heading">';
 
 					if (social == true)
 						toAppend += "<strong>" + profile_name + "</strong>";

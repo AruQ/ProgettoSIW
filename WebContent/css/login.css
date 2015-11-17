@@ -89,7 +89,7 @@ img {
 .wrap {
 	position: fixed;
 	/* center the element */
-	margin-top: 10%;
+	margin-top: 12%;
 	border-radius: 12px;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
@@ -632,7 +632,7 @@ img {
 
 @media only screen and (max-width: 480px) {
 	.wrap {
-		width: 56%;
+		width: 100%;
 	}
 	.contact_form {
 		width: 100%;
@@ -663,7 +663,7 @@ img {
 	.form_hint {
 		font-size: 0.8em;
 		padding: 6px 5px;
-		right: -128px;
+		right: -55px;
 		bottom: 6px;
 	}
 	.form_hint::before {

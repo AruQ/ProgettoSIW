@@ -28,32 +28,34 @@ public class TotalPointsServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		String toReturn="";
+		String toReturn = "";
 
 		String primi = req.getParameter("primi");
 		String secondi = req.getParameter("secondi");
 		String contorni = req.getParameter("contorni");
 		System.out.println("primi " + primi + " secondi " + secondi + " contorni " + contorni);
 
-		PointsCalculatorStub pointsCalculatorStub = new PointsCalculatorStub();
-		SumPoints sumPoints = new SumPoints();
+		if (primi != null && secondi != null && contorni != null)
+		{
+			PointsCalculatorStub pointsCalculatorStub = new PointsCalculatorStub();
+			SumPoints sumPoints = new SumPoints();
 
-		sumPoints.setNumContorni(Integer.parseInt(contorni));
-		sumPoints.setNumPrimi(Integer.parseInt(primi));
-		sumPoints.setNumSecondi(Integer.parseInt(secondi));
-		SumPointsResponse response = pointsCalculatorStub.sumPoints(sumPoints);
-		int totalPoints = response.get_return();
-		System.out.println(totalPoints);
+			sumPoints.setNumContorni(Integer.parseInt(contorni));
+			sumPoints.setNumPrimi(Integer.parseInt(primi));
+			sumPoints.setNumSecondi(Integer.parseInt(secondi));
+			SumPointsResponse response = pointsCalculatorStub.sumPoints(sumPoints);
+			int totalPoints = response.get_return();
+			System.out.println(totalPoints);
 
-		int maxPoints = pointsCalculatorStub.getMaxPoints(new GetMaxPoints()).get_return();
-		if (maxPoints >= totalPoints)
-			toReturn += "'valid': 'true',";
-		else
-			toReturn += "'valid': 'false',";
-		toReturn += "'totalPoints':'" + Integer.toString(totalPoints) + "',";
-		toReturn += "'maxPoints':'" + Integer.toString(maxPoints) + "'";
-		resp.getWriter().write("{" + toReturn + "}");
-
+			int maxPoints = pointsCalculatorStub.getMaxPoints(new GetMaxPoints()).get_return();
+			if (maxPoints >= totalPoints)
+				toReturn += "'valid': 'true',";
+			else
+				toReturn += "'valid': 'false',";
+			toReturn += "'totalPoints':'" + Integer.toString(totalPoints) + "',";
+			toReturn += "'maxPoints':'" + Integer.toString(maxPoints) + "'";
+			resp.getWriter().write("{" + toReturn + "}");
+		}
 
 	}
 

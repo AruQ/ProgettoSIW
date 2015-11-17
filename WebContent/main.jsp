@@ -7,9 +7,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<%
+	String userAgent = request.getHeader("user-agent");
+	boolean mobile = userAgent.matches(".*Android.*");
+	if (mobile){
+%>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+<%} %>
 <script type="text/javascript">
 	var contextPath ='<%=request.getContextPath()%>';
+	var mobile = <%=mobile%>;
 </script>
+
 
 <style type="text/css">
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
@@ -17,10 +26,19 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script> -->
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<%
+	if (mobile) {
+%>
+<link href="css/mobile/index.css" rel="stylesheet" type="text/css" />
+<%
+	} else {
+%>
 <link href="css/index.css" rel="stylesheet" type="text/css" />
+<%
+	}
+%>
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 <link href="css/signup.css" rel="stylesheet" type="text/css" />
 <link href="css/message.css" rel="stylesheet" type="text/css" />
@@ -28,19 +46,14 @@
 <script src="javaScript/signup.js" type="text/javascript"></script>
 <script src="javaScript/index.js" type="text/javascript"></script>
 <script src="javaScript/map.js" type="text/javascript"></script>
-<script src="javaScript/message.js" type="text/javascript"></script>
+ <script src="javaScript/message.js" type="text/javascript"></script> 
 
 
 
-
-<%
-	String userAgent = request.getHeader("user-agent");
-	boolean mobile = userAgent.matches(".*Android.*");
-%>
 
 </head>
 <body>
-	<div class="info message totalPoints">
+  <div class="info message totalPoints">
 		<h3>Combinazione Valida</h3>
 		<p id="totalPointsText">Totale Punti</p>
 	</div>
@@ -67,7 +80,7 @@
 	<div class="warning message errorPoints">
 		<h3>Combinazione non valida</h3>
 		<p id="errorPointsText"></p>
-	</div>
+	</div>  
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -112,46 +125,72 @@
 	%>
 
 
-	<header role="banner" id="top" style="background: #ffffff url('images/red-area2.png') repeat; background-repeat: repeat-x;background-size: auto 100%;height:150px;"
-		class="navbar navbar-inverse navbar-static-top flat-nav navbar-fixed-top">
+	<header role="banner" id="top" class="navbar navbar-inverse navbar-static-top flat-nav navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<button data-target=".flat-nav-collapse" data-toggle="collapse" type="button" class="nav-tog lines-button x navbar-toggle neutro">
+			<!-- <button data-target=".flat-nav-collapse" data-toggle="collapse" type="button" class="nav-tog lines-button x navbar-toggle neutro">
 				<span class="sr-only">Togli Navigazione</span> <span class="lines"></span>
-			</button>
-			<a class="navbar-brand" onclick="loadHome"><img style="width: 300px;" src="./images/logo_unical.png" class="img-responsive" alt="Forum Logo"></a>
-		</div>
+			</button> -->
+			<a class="navbar-brand " onclick="loadHome"><img  src="./images/logo_unical.png" class="img-responsive" alt="Forum Logo"></a>
+	
 		<!-- Main navigation block -->
-		<nav class="collapse navbar-collapse flat-nav-collapse" role="navigation" aria-label="Primary">
-		<ul id="navbarul" class="nav navbar-nav navbar-nav-fancy" style="color: blue;">
-			<li><a onclick="loadHome()"><i class="fa fa-home fa-lg"></i> HOME</a></li>
-			<li><a onclick="loadMenu('<%=currentData%>','dd-MM-yyyy')"><i class="fa fa-calendar fa-lg"></i> MENU</a><span></span></li>
-			<li><a onclick="goToMap()"><i class="fa fa-location-arrow fa-lg"></i> LOCATION</a><span></span></li>
-			<li><a onclick="loadDishes()"><i class="fa fa-cutlery fa-lg"></i> DISHES</a><span></span></li>
+		<%
+			if (mobile)
+			{
+		%>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bars fa-6"></i></a>
+				<ul class="dropdown-menu navbarul">
+					<li><a onclick="loadHome()"><i class="fa fa-home fa-lg"></i> HOME</a></li>
+					<li><a onclick="loadMenu('<%=currentData%>','dd-MM-yyyy')"><i class="fa fa-calendar fa-lg"></i> MENU</a><span></span></li>
+					<li><a onclick="goToMap()"><i class="fa fa-location-arrow fa-lg"></i> LOCATION</a><span></span></li>
+					<li><a onclick="loadDishes()"><i class="fa fa-cutlery fa-lg"></i> DISHES</a><span></span></li>
+					<li class="divider"></li>
+					<li id="loginButton" data-dismiss="modal" data-toggle="modal" data-target="#login"><a><span class="glyphicon glyphicon-log-in"></span> &#32;  LOG IN</a></li>
+					
+				</ul></li>
+		</ul>
+			</div>
+
+		
+	<%
+		} else
+		{
+	%> 
+		</div><nav class="collapse navbar-collapse flat-nav-collapse" role="navigation" aria-label="Primary">
+	<ul id="navbarul" class="nav navbar-nav navbar-nav-fancy">
+		<li><a onclick="loadHome()"><i class="fa fa-home fa-lg"></i> HOME</a></li>
+		<li><a onclick="loadMenu('<%=currentData%>','dd-MM-yyyy')"><i class="fa fa-calendar fa-lg"></i> MENU</a><span></span></li>
+		<li><a onclick="goToMap()"><i class="fa fa-location-arrow fa-lg"></i> LOCATION</a><span></span></li>
+		<li><a onclick="loadDishes()"><i class="fa fa-cutlery fa-lg"></i> DISHES</a><span></span></li>
+
+	</ul>
+
+
+	<div class="user-login hidden-xs">
+		<ul id="navbarul" class="nav navbar-nav navbar-right navbar-nav-fancy">
+			<li id="loginButton" data-dismiss="modal" data-toggle="modal" data-target="#login"><a>LOG IN</a></li>
 
 		</ul>
-		<div></div>
-
-		<div class="user-login hidden-xs">
-			<ul id="navbarul" class="nav navbar-nav navbar-right navbar-nav-fancy">
-				<li id="loginButton" data-dismiss="modal" data-toggle="modal" data-target="#login"><a>LOG IN</a></li>
-
-			</ul>
-		</div>
-
-		</nav>
 	</div>
+
+	</nav> <%
+ 	}
+ %>
 
 	</header>
 
 
-	<div class="row" style="margin-top: 150px; background-color: white""></div>
+
 	<div class="row">
 
-
-		<div class="col-lg-2"></div>
-		<div class="col-lg-8" id="mainIndex"></div>
-		<div class="col-lg-2"></div>
+		<div class="col-xs-0 col-lg-2"></div>
+		<!-- <div class="row" id ="headerDiv"></div> -->
+		<div class="col-xs-12 col-lg-8" id="mainIndex"></div>
+	
+		<div class="col-xs-0 col-lg-2"></div>
+	
+	
 	</div>
 
 

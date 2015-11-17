@@ -3,18 +3,22 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 
 
-
 <%
 	User user = (User) session.getAttribute("user");
-	if (user == null)
-	{
+	if (user == null) {
 		response.sendError(404);
-	} else
-	{
+	} else {
 %>
 
-<script>function goToControlPanel(username) {
-
+<script>
+$(document).ready (function() {
+	if (mobile)
+		{
+			$(".list-group-item").css ("margin","0 -35px");
+			$("figure>img").css ("margin-bottom", "15px");
+		}
+});
+function goToControlPanel(username) {
 		$.ajax({
 			type : "POST",
 			url : contextPath + '/admin',
@@ -29,6 +33,8 @@
 		});
 
 	}
+	
+	
 </script>
 
 
